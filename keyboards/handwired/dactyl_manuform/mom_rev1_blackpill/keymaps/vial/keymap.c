@@ -1,14 +1,14 @@
 #include QMK_KEYBOARD_H
 
-enum my_keycodes {
-  DPI_INC = SAFE_RANGE,
+enum blender_keycode {
+  DPI_INC = QK_USER_0,
   DPI_DEC,
   SEN_INC,
   SEN_DEC,
+  DW_INC,
   DW_DEC, 
-  DW_INC, 
-  DECEL_DEC,
-  DECEL_INC
+  DECEL_INC, 
+  DECEL_DEC  
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -62,6 +62,8 @@ bool caps_word_press_user(uint16_t keycode) {
             return false;  // Deactivate Caps Word.
     }
 }
+
+
 // *********************
 // Dynamic macro control
 // *********************
