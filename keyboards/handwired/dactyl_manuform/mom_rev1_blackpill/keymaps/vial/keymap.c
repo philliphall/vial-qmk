@@ -1,14 +1,15 @@
 #include QMK_KEYBOARD_H
 
 enum blender_keycode {
-  DPI_INC = QK_USER_0,
+  DPI_INC = QK_KB,
   DPI_DEC,
   SEN_INC,
   SEN_DEC,
   DW_INC,
   DW_DEC, 
   DECEL_INC, 
-  DECEL_DEC  
+  DECEL_DEC,
+  NEW_QK_KB
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
