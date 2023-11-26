@@ -9,7 +9,7 @@
       },
       {"name": "DPI-",
         "title": "Decrease trackball DPI (resolution)",
-        "shortname": "DPI_DEC"
+        "shortName": "DPI_DEC"
       },
       {"name": "SEN+",
         "title": "Increase trackball sensitivity (how far it makes your cursor move)",
@@ -17,7 +17,7 @@
       },
       {"name": "SEN-",
         "title": "Decrease trackball sensitivity (how far it makes your cursor move)",
-        "shortname": "SEN_DEC"
+        "shortName": "SEN_DEC"
       },
       {"name": "DW+",
         "title": "Increase trackball deceleration curve width",
@@ -25,7 +25,7 @@
       },
       {"name": "DW-",
         "title": "Decrease trackball deceleration curve width",
-        "shortname": "DW_DEC"
+        "shortName": "DW_DEC"
       },
       {"name": "Decel+",
         "title": "Increase trackball deceleration curve strength",
@@ -33,7 +33,11 @@
       },
       {"name": "Decel-",
         "title": "Decrease trackball deceleration curve strength",
-        "shortname": "DECEL_DEC"
+        "shortName": "DECEL_DEC"
+      },
+      {"name": "Save Config",
+        "title": "Save user configurable settings such as current trackball resolution. Without doing this, changes will return to default the next time the keyboard is turned on.",
+        "shortName": "EE_SAVE"
       }
     ],
     "lighting": "none",

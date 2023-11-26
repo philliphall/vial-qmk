@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 
 enum blender_keycode {
-  DPI_INC = QK_KB,
+  DPI_INC = QK_KB_0,
   DPI_DEC,
   SEN_INC,
   SEN_DEC,
@@ -9,7 +9,8 @@ enum blender_keycode {
   DW_DEC, 
   DECEL_INC, 
   DECEL_DEC,
-  NEW_QK_KB
+  EE_SAVE,
+  NEW_QK_KB_0
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -21,12 +22,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[5] = LAYOUT_5x7(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, MO(2), KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 };
 
-// Some boilerplate from QMK Configurator that I don't think is actually used.
-#if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
-    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-};
-#endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
-
 // Layer names for each layer
 enum layer_names { 
 	_QWERTY,
@@ -36,6 +31,40 @@ enum layer_names {
 	_GAME,
     _MOUSE
 };
+
+// Because the Blackpill has issues resuming currently. 
+void suspend_wakeup_init_user(void) {    NVIC_SystemReset();}
+
+
+// ***********************************
+// Persistence using vitualized EEPROM
+// ***********************************
+typedef union {
+    uint64_t raw;
+    struct {
+        uint16_t dpi;
+        uint16_t sen;
+        uint8_t  decel_width;
+        uint8_t  decel_strength;
+        uint8_t  scroll_divisor_h;
+        uint8_t  scroll_divisor_v;     
+    };
+} user_config_t;
+user_config_t user_config;
+
+// Default values
+void eeconfig_init_user(void) {  // EEPROM is getting reset!
+    user_config.raw = 0;
+    user_config.dpi = PMW33XX_CPI; 
+    user_config.decel_width = DECEL_WIDTH; 
+    user_config.decel_strength = DECEL_STRENGTH;
+    user_config.scroll_divisor_h = SCROLL_DIVISOR_H; // user update not yet implemented
+    user_config.scroll_divisor_v = SCROLL_DIVISOR_V; // user update not yet implemented
+    eeconfig_update_user(user_config.raw); // Write default value to EEPROM now
+}
+
+// Read config on init
+void kpiu_read_config_from_eeprom(void) { user_config.raw = eeconfig_read_user(); }
 
 
 // *******************
@@ -114,7 +143,7 @@ bool is_alt_tab_active = false;
 bool is_backspace_active = false;
 
 // Reset mode when timer expired
-void msu_encoder_super_timer(void) { // To be executed in matrix_scan_user.
+void msu_encoder_super_timer(void) { // To be executed in matrix_scan_user.J
     if (is_alt_tab_active) {
         if (timer_elapsed(encoder_timer) > encoder_timeout) {
             unregister_code(KC_LALT);
@@ -205,53 +234,17 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 //#ifdef POINTING_DEVICE_ENABLE
 
 // IInitialize custom trackball features
-#ifndef SCROLL_DIVISOR_H
-#define SCROLL_DIVISOR_H 8.0  // Modify these values to adjust the scrolling speed (horizontal)
-#endif
-#ifndef SCROLL_DIVISOR_V
-#define SCROLL_DIVISOR_V 8.0  // Modify these values to adjust the scrolling speed (vertical)
-#endif
-#ifndef SNIPING_DIVISOR
-#define SNIPING_DIVISOR 10  // When in sniping mode, how much slower to go
-#endif
-#ifndef PMW33XX_CPI
-#define PMW33XX_CPI  1200     // Default 1200
-#endif
-#ifndef DPI_INCREMENT
-#define DPI_INCREMENT 150     // Percent increase when increasing DPI
-#endif
-#ifndef DPI_DECREMENT
-#define DPI_DECREMENT 66      // Percent to multiply by when decreasing DPI
-#endif
-#ifndef SEN_INITIAL
-#define SEN_INITIAL 1000      // Initial Sensitivity (percent times 10 - so I can use an int)
-#endif
-#ifndef SEN_INCREMENT
-#define SEN_INCREMENT 150     // Percent increase when increasing Sensitivity
-#endif
-#ifndef SEN_DECREMENT
-#define SEN_DECREMENT 66      // Percent to multiply by when decreasing Sensitivity
-#endif
-#ifndef DECEL_WIDTH
-#define DECEL_WIDTH 40        // Width of precision deceleration curve 
-#endif
-#ifndef DECEL_STRENGTH
-#define DECEL_STRENGTH 20     // Deceleration factor (higher is more extreme)
-#endif
-uint16_t current_dpi = PMW33XX_CPI;
 uint16_t first_dpi = 0;
 uint16_t init_dpi = 1;
 uint16_t detected_dpi = 1;
 bool reported = false;
-uint16_t current_sen = SEN_INITIAL;
-uint8_t  current_decel_width = DECEL_WIDTH;
-uint8_t  current_decel_strength = DECEL_STRENGTH; 
 // Some of the variables above are initiated at pointing_device_init_user defined near the bottom of this file.
 
 #include <math.h> // Needed for the floor, fmin, and fmax functions below
 
 // Custom keycodes for mouse functions 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    dprintf("In process_record_user.\n");
     switch (keycode) {
               
         // DPI / CPI - affects how the trackball sensor tracks/reports motion
@@ -263,71 +256,77 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 }
                 detected_dpi = pointing_device_get_cpi();
                 wait_ms(50); 
-                dprintf("DPI_INC was pressed. Original DPI configured: %u. Original DPI detected: %u\n", current_dpi, detected_dpi);
-                current_dpi = fmin(PMW33XX_CPI_MAX, floor(((current_dpi * DPI_INCREMENT / 100) / PMW33XX_CPI_STEP) + 0.5) * PMW33XX_CPI_STEP);
-                pointing_device_set_cpi(current_dpi);
+                dprintf("DPI_INC was pressed. Original DPI configured: %u. Original DPI detected: %u\n", user_config.dpi, detected_dpi);
+                user_config.dpi = fmin(PMW33XX_CPI_MAX, floor(((user_config.dpi * DPI_INCREMENT / 100) / PMW33XX_CPI_STEP) + 0.5) * PMW33XX_CPI_STEP);
+                pointing_device_set_cpi(user_config.dpi);
                 wait_ms(50); 
                 detected_dpi = pointing_device_get_cpi();
                 wait_ms(50); 
-                dprintf("New DPI configured: %u. New DPI detected: %u\n", current_dpi, detected_dpi);
+                dprintf("New DPI configured: %u. New DPI detected: %u\n", user_config.dpi, detected_dpi);
             }
             return false;
         case DPI_DEC:
             if (record->event.pressed) {
-                dprintf("DPI_DEC was pressed. Original DPI: %u.\n", current_dpi);
-                current_dpi = fmax(PMW33XX_CPI_MIN, floor(((current_dpi * DPI_DECREMENT / 100) / PMW33XX_CPI_STEP) + 0.5) * PMW33XX_CPI_STEP);
-                dprintf("New DPI: %u.\n", current_dpi);
-                pointing_device_set_cpi(current_dpi);
+                dprintf("DPI_DEC was pressed. Original DPI: %u.\n", user_config.dpi);
+                user_config.dpi = fmax(PMW33XX_CPI_MIN, floor(((user_config.dpi * DPI_DECREMENT / 100) / PMW33XX_CPI_STEP) + 0.5) * PMW33XX_CPI_STEP);
+                dprintf("New DPI: %u.\n", user_config.dpi);
+                pointing_device_set_cpi(user_config.dpi);
             }
             return false;
         
         // Sensitivity - mathematically adjust how sensitive we are to what the sensor reports
         case SEN_INC:
             if (record->event.pressed) {
-                dprintf("SEN_INC was pressed. Original SEN: %u.\n", current_sen);
-                current_sen = fmin(65535, (uint16_t)current_sen * SEN_INCREMENT / 100);
-                dprintf("New SEN: %u.\n", current_sen);
+                dprintf("SEN_INC was pressed. Original SEN: %u.\n", user_config.sen);
+                user_config.sen = fmin(65535, (uint16_t)user_config.sen * SEN_INCREMENT / 100);
+                dprintf("New SEN: %u.\n", user_config.sen);
             }
             return false;
         case SEN_DEC:
             if (record->event.pressed) {
-                dprintf("SEN_DEC was pressed. Original SEN: %u.\n", current_sen);
-                current_sen = fmax(2, (uint16_t)current_sen * SEN_DECREMENT / 100);
-                dprintf("New SEN: %u.\n", current_sen);
+                dprintf("SEN_DEC was pressed. Original SEN: %u.\n", user_config.sen);
+                user_config.sen = fmax(2, (uint16_t)user_config.sen * SEN_DECREMENT / 100);
+                dprintf("New SEN: %u.\n", user_config.sen);
             }
             return false;
         
         // Width of the decel curve... IE do only super slow movements track more precise, or do some medium movements get reduced sensitivity as well?
         case DW_DEC:
-              if (record->event.pressed) {
-                dprintf("DW_DEC was pressed. Original Decel Width: %u.\n", current_decel_width);
-                current_decel_width -= 1;
-                dprintf("New Decel Width: %u.\n", current_decel_width);
+            if (record->event.pressed) {
+                dprintf("DW_DEC was pressed. Original Decel Width: %u.\n", user_config.decel_width);
+                user_config.decel_width -= 1;
+                dprintf("New Decel Width: %u.\n", user_config.decel_width);
             }
             return false;    
         case DW_INC:
-              if (record->event.pressed) {
-                dprintf("DW_INC was pressed. Original Decel Width: %u.\n", current_decel_width);
-                current_decel_width += 1;
-                dprintf("New Decel Width: %u.\n", current_decel_width);
+            if (record->event.pressed) {
+                dprintf("DW_INC was pressed. Original Decel Width: %u.\n", user_config.decel_width);
+                user_config.decel_width += 1;
+                dprintf("New Decel Width: %u.\n", user_config.decel_width);
             }
             return false;      
         
         // How significantly should cursor movement be desensitized when trying to move the trackball slowly?
         case DECEL_DEC:
-              if (record->event.pressed) {
-                dprintf("DECEL_DEC was pressed. Original Decel Strength: %u.\n", current_decel_strength);
-                current_decel_strength -= 1;
-                dprintf("New Decel Strength: %u.\n", current_decel_strength);
+            if (record->event.pressed) {
+                dprintf("DECEL_DEC was pressed. Original Decel Strength: %u.\n", user_config.decel_strength);
+                user_config.decel_strength -= 1;
+                dprintf("New Decel Strength: %u.\n", user_config.decel_strength);
             }
             return false;    
         case DECEL_INC:
-              if (record->event.pressed) {
-                dprintf("DECEL_INC was pressed. Original Decel Strength: %u.\n", current_decel_strength);
-                current_decel_strength += 1;
-                dprintf("New Decel Strength: %u.\n", current_decel_strength);
+            if (record->event.pressed) {
+                dprintf("DECEL_INC was pressed. Original Decel Strength: %u.\n", user_config.decel_strength);
+                user_config.decel_strength += 1;
+                dprintf("New Decel Strength: %u.\n", user_config.decel_strength);
             }
             return false;    
+        case EE_SAVE:
+            if (record->event.pressed) {
+                dprintf("EE_SAVE was pressed. Writing to virtualized EEPROM.\n");
+                eeconfig_update_user(user_config.raw);
+            }
+            return false;
     }
     return true; // Normal handling for all other keycodes not returned above.
 }
@@ -349,10 +348,10 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
 // Decel Algorithm
 float decel(int16_t d) {
     if (d > 0) {
-        return d*(1/(1+exp(-((float)d/current_decel_width*10-current_decel_strength/10))));
+        return d*(1/(1+exp(-((float)d/user_config.decel_width*10-user_config.decel_strength/10))));
     }
     else {
-        return d*(1/(1+exp(-((float)-d/current_decel_width*10-current_decel_strength/10))));
+        return d*(1/(1+exp(-((float)-d/user_config.decel_width*10-user_config.decel_strength/10))));
     }
     return 0;
 }
@@ -395,14 +394,14 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     if (layer_state_is(_FN)) {
         // Calculate and accumulate scroll values based on mouse movement and divisors
         #ifdef POINTING_DEVICE_INVERT_Y
-            scroll_accumulated_v -= (float)mouse_report.y / SCROLL_DIVISOR_V;
+            scroll_accumulated_v -= (float)mouse_report.y / user_config.scroll_divisor_v;
         #else     
-            scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
+            scroll_accumulated_v += (float)mouse_report.y / user_config.scroll_divisor_v;
         #endif // POINTING_DEVICE_INVERT_Y
         #ifdef POINTING_DEVICE_INVERT_X
-            scroll_accumulated_h -= (float)mouse_report.x / SCROLL_DIVISOR_H;
+            scroll_accumulated_h -= (float)mouse_report.x / user_config.scroll_divisor_h;
         #else
-            scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
+            scroll_accumulated_h += (float)mouse_report.x / user_config.scroll_divisor_h;
         #endif // POINTING_DEVICE_INVERT_X 
         // Assign integer parts of accumulated scroll values to the mouse report
         mouse_report.h = (int16_t)scroll_accumulated_h;
@@ -431,8 +430,8 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     }
 
     // Sensitivity Multiplier
-    movement_accumulated_x += (float)mouse_report.x * current_sen / 1000;
-    movement_accumulated_y += (float)mouse_report.y * current_sen / 1000;    
+    movement_accumulated_x += (float)mouse_report.x * user_config.sen / 1000;
+    movement_accumulated_y += (float)mouse_report.y * user_config.sen / 1000;    
     // Assign integer parts of accumulated movement values to the mouse report
     mouse_report.x = (int16_t)movement_accumulated_x;
     mouse_report.y = (int16_t)movement_accumulated_y;
@@ -539,9 +538,9 @@ bool oled_task_user(void) {
         // Trackball DPI Reporting
         //#ifdef POINTING_DEVICE_ENABLE
 /*         oled_write_P(PSTR("DPI:"), false);
-        oled_write_P(PSTR(get_u16_str(current_dpi, ' ')), false);
+        oled_write_P(PSTR(get_u16_str(user_config.dpi, ' ')), false);
         oled_write_P(PSTR(" SEN:"), false);
-        oled_write_P(PSTR(get_u16_str((uint16_t)current_sen / 10, ' ')), false);
+        oled_write_P(PSTR(get_u16_str((uint16_t)user_config.sen / 10, ' ')), false);
         oled_write_P(PSTR("\n"), false); */
         //#endif
         
@@ -611,12 +610,17 @@ void matrix_scan_user(void) {
 }
 
 void keyboard_post_init_user(void) {
+
+    // Read persistent config items
+    kpiu_read_config_from_eeprom();
+
     // Debug levels
     debug_enable = true;
     debug_matrix = false;
     debug_keyboard = false;
     debug_mouse = false;
     
+    // Start up some timers
     kpiu_oled_timer();
     kpiu_squal_timer(); 
     kpiu_reinit_timer();
@@ -624,7 +628,7 @@ void keyboard_post_init_user(void) {
 
 void pointing_device_init_user(void) { 
     first_dpi = pointing_device_get_cpi();
-    pointing_device_set_cpi(current_dpi);
+    pointing_device_set_cpi(user_config.dpi);
     init_dpi = pointing_device_get_cpi();
     
     //set_auto_mouse_layer(<mouse_layer>); // only required if AUTO_MOUSE_DEFAULT_LAYER is not set to index of <mouse_layer>
