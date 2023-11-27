@@ -1,4 +1,4 @@
-// This is how the MCU will know which hand it is. 
+// This is how the MCU will know which hand it is.
 #define SPLIT_HAND_PIN B10 // high = left, low = right
 
 // Split Communication
@@ -62,11 +62,11 @@
 #define POINTING_DEVICE_RIGHT
 #define POINTING_DEVICE_INVERT_Y
 #define POINTING_DEVICE_TASK_THROTTLE_MS 1
-#define POINTING_DEVICE_DEBUG
+//#define POINTING_DEVICE_DEBUG
 
 /* Custom Trackball Configs */
-#define SCROLL_DIVISOR_H 15.0 // Modify these values to adjust the scrolling speed (horizontal). In windows, I recoomend also updating mouse settings to scroll only one line at a time (default is 3) for smoother scrolling performance. 
-#define SCROLL_DIVISOR_V 30.0 // Modify these values to adjust the scrolling speed (vertical)
+#define SCROLL_DIVISOR_H 15   // Modify these values to adjust the scrolling speed (horizontal). In windows, I recoomend also updating mouse settings to scroll only one line at a time (default is 3) for smoother scrolling performance.
+#define SCROLL_DIVISOR_V 30   // Modify these values to adjust the scrolling speed (vertical)
 #define PRECISION_DIVISOR 10  // When in precision mode, how much slower to go
 #define PMW33XX_CPI 12000     // Default 2000
 #define DPI_INCREMENT 150     // Percent increase when increasing DPI
@@ -81,3 +81,6 @@
 /* Used for checksums of mouse report transactions across split */
 #define CRC8_USE_TABLE
 #define CRC8_OPTIMIZE_SPEED
+
+/* EEPROM virtualized size */
+#define EECONFIG_USER_DATA_SIZE 64

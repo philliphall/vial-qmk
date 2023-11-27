@@ -1,29 +1,29 @@
 #include QMK_KEYBOARD_H
 
-enum blender_keycode {
+enum my_keycodes {
   DPI_INC = QK_KB_0,
   DPI_DEC,
   SEN_INC,
   SEN_DEC,
   DW_INC,
-  DW_DEC, 
-  DECEL_INC, 
+  DW_DEC,
+  DECEL_INC,
   DECEL_DEC,
   EE_SAVE,
   NEW_QK_KB_0
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[0] = LAYOUT_5x7(KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_GRV, KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_LBRC, CW_TOGG, KC_A, KC_S, KC_D, KC_F, KC_G, KC_LPRN, KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_LCTL, KC_LGUI, KC_LEFT, KC_RGHT, KC_BSPC, LT(3,KC_DEL), KC_LCTL, KC_LALT, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_RBRC, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSLS, KC_RPRN, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_BTN1, KC_BTN2, KC_PSCR, LGUI(KC_L), LT(2,KC_ENT), KC_SPC, KC_INS, MO(2)),
-	[1] = LAYOUT_5x7(KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_TAB, KC_Q, KC_W, KC_F, KC_P, KC_B, KC_LBRC, CW_TOGG, KC_A, KC_R, KC_S, KC_T, KC_G, KC_LPRN, KC_LSFT, KC_Z, KC_X, KC_C, KC_D, KC_V, KC_LCTL, KC_LGUI, KC_LEFT, KC_RGHT, KC_BSPC, LT(3,KC_DEL), KC_LCTL, KC_LALT, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_GRV, KC_RBRC, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_BSLS, KC_RPRN, KC_M, KC_N, KC_E, KC_I, KC_O, KC_QUOT, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_BTN1, KC_BTN2, KC_PSCR, LGUI(KC_L), LT(2,KC_ENT), KC_SPC, KC_INS, MO(2)),
-	[2] = LAYOUT_5x7(RGB_TOG, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, DB_TOGG, RGB_RMOD, RGB_MOD, DW_DEC, DW_INC, RGB_VAD, RGB_VAI, TO(4), RGB_SPD, RGB_SPI, DECEL_DEC, DECEL_INC, KC_BRID, KC_BRIU, DF(0), RGB_HUD, RGB_HUI, DPI_DEC, DPI_INC, SEN_DEC, SEN_INC, KC_MSTP, KC_MPLY, KC_MPRV, KC_MNXT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, TO(3), LCTL(KC_BSPC), KC_BSPC, KC_UP, KC_DEL, LCTL(KC_DEL), KC_TRNS, DF(1), LCTL(KC_LEFT), KC_LEFT, KC_DOWN, KC_RGHT, LCTL(KC_RGHT), KC_TRNS, KC_PGUP, KC_HOME, KC_DOWN, KC_END, KC_PGDN, KC_TRNS, KC_BTN1, KC_BTN2, KC_MUTE, QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+	[0] = LAYOUT_5x7(KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_GRV, KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_LBRC, CW_TOGG, KC_A, KC_S, KC_D, KC_F, KC_G, KC_LPRN, KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_LCTL, KC_LGUI, KC_LEFT, KC_RGHT, LSFT_T(KC_BSPC), LT(3,KC_DEL), KC_LCTL, KC_LALT, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_RBRC, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSLS, KC_RPRN, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_BTN1, KC_BTN2, KC_PSCR, LGUI(KC_L), LT(2,KC_ENT), KC_SPC, KC_INS, MO(2)),
+	[1] = LAYOUT_5x7(KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_TAB, KC_Q, KC_W, KC_F, KC_P, KC_B, KC_LBRC, CW_TOGG, KC_A, KC_R, KC_S, KC_T, KC_G, KC_LPRN, KC_LSFT, KC_Z, KC_X, KC_C, KC_D, KC_V, KC_LCTL, KC_LGUI, KC_LEFT, KC_RGHT, LSFT_T(KC_BSPC), LT(3,KC_DEL), KC_LCTL, KC_LALT, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_GRV, KC_RBRC, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_BSLS, KC_RPRN, KC_M, KC_N, KC_E, KC_I, KC_O, KC_QUOT, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_BTN1, KC_BTN2, KC_PSCR, LGUI(KC_L), LT(2,KC_ENT), KC_SPC, KC_INS, MO(2)),
+	[2] = LAYOUT_5x7(RGB_TOG, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, DB_TOGG, RGB_RMOD, RGB_MOD, DW_DEC, DW_INC, RGB_VAD, RGB_VAI, TO(4), RGB_SPD, RGB_SPI, DECEL_DEC, DECEL_INC, KC_BRID, KC_BRIU, DF(0), RGB_HUD, RGB_HUI, DPI_DEC, DPI_INC, SEN_DEC, SEN_INC, KC_MSTP, KC_MPLY, KC_MPRV, KC_MNXT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, TO(3), LCTL(KC_BSPC), KC_BSPC, KC_UP, KC_DEL, LCTL(KC_DEL), EE_CLR, DF(1), LCTL(KC_LEFT), KC_LEFT, KC_DOWN, KC_RGHT, LCTL(KC_RGHT), EE_SAVE, KC_PGUP, KC_HOME, KC_DOWN, KC_END, KC_PGDN, KC_TRNS, KC_BTN1, KC_BTN2, KC_MUTE, QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 	[3] = LAYOUT_5x7(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NUM, KC_CALC, LSFT(KC_5), KC_PSLS, KC_PMNS, KC_EQL, KC_TRNS, KC_TRNS, KC_LPRN, KC_7, KC_8, KC_9, KC_PAST, KC_TRNS, KC_TRNS, KC_RPRN, KC_4, KC_5, KC_6, KC_PPLS, KC_TRNS, KC_COLN, KC_1, KC_2, KC_3, KC_ENT, KC_TRNS, KC_BTN1, KC_PDOT, KC_COMM, TO(0), KC_TRNS, KC_0, LSFT(KC_4), LSFT(KC_5)),
 	[4] = LAYOUT_5x7(KC_TRNS, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_TRNS, KC_CAPS, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_TRNS, KC_LSFT, KC_A, KC_S, KC_D, KC_F, KC_G, KC_TRNS, KC_LCTL, KC_Z, KC_X, KC_C, KC_V, KC_LCTL, KC_NO, KC_I, KC_M, KC_SPC, KC_ESC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TO(0), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 	[5] = LAYOUT_5x7(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, MO(2), KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 };
 
 // Layer names for each layer
-enum layer_names { 
+enum layer_names {
 	_QWERTY,
 	_COLEMAK,
 	_FN,
@@ -32,7 +32,7 @@ enum layer_names {
     _MOUSE
 };
 
-// Because the Blackpill has issues resuming currently. 
+// Because the Blackpill has issues resuming currently.
 void suspend_wakeup_init_user(void) {    NVIC_SystemReset();}
 
 
@@ -42,36 +42,44 @@ void suspend_wakeup_init_user(void) {    NVIC_SystemReset();}
 typedef union {
     uint64_t raw;
     struct {
-        uint16_t dpi;
-        uint16_t sen;
-        uint8_t  decel_width;
-        uint8_t  decel_strength;
-        uint8_t  scroll_divisor_h;
-        uint8_t  scroll_divisor_v;     
+        uint16_t dpi              : 16;
+        uint16_t sen              : 16;
+        uint8_t  decel_width      : 8;
+        uint8_t  decel_strength   : 8;
+        uint8_t  scroll_divisor_h : 8;
+        uint8_t  scroll_divisor_v : 8;
     };
 } user_config_t;
 user_config_t user_config;
 
 // Default values
-void eeconfig_init_user(void) {  // EEPROM is getting reset!
+void eeconfig_init_user_datablock(void) {  // EEPROM is getting reset!
+dprintf("EEPROM is getting reset to default values now!\n");
     user_config.raw = 0;
-    user_config.dpi = PMW33XX_CPI; 
-    user_config.decel_width = DECEL_WIDTH; 
+    user_config.dpi = PMW33XX_CPI;
+    user_config.sen = SEN_INITIAL;
+    user_config.decel_width = DECEL_WIDTH;
     user_config.decel_strength = DECEL_STRENGTH;
     user_config.scroll_divisor_h = SCROLL_DIVISOR_H; // user update not yet implemented
     user_config.scroll_divisor_v = SCROLL_DIVISOR_V; // user update not yet implemented
-    eeconfig_update_user(user_config.raw); // Write default value to EEPROM now
+    dprintf("Configuration value now %llu. Writing to EEPROM.\n", user_config.raw);
+    eeconfig_update_user_datablock(&user_config.raw); // Write default value to EEPROM now
 }
 
 // Read config on init
-void kpiu_read_config_from_eeprom(void) { user_config.raw = eeconfig_read_user(); }
+void kpiu_read_config_from_eeprom(void) {
+    dprintf("Initializing from EEPROM. Initial value of user_config: %llu\n", user_config.raw);
+    eeconfig_read_user_datablock(&user_config.raw);
+    pointing_device_set_cpi(user_config.dpi);
+    dprintf("                                             New value: %llu\n", user_config.raw);
+}
 
 
 // *******************
 // Customize Caps Word
 // *******************
 // This is copied from the default documented here: https://github.com/qmk/qmk_firmware/blob/master/docs/feature_caps_word.md
-// All I really want is to stop the - key from being shifted. Drives me nuts. 
+// All I really want is to stop the - key from being shifted. Drives me nuts.
 bool caps_word_press_user(uint16_t keycode) {
     switch (keycode) {
         // Keycodes that continue Caps Word, with shift applied.
@@ -97,7 +105,7 @@ bool caps_word_press_user(uint16_t keycode) {
 // *********************
 // Dynamic macro control
 // *********************
-//#ifdef DYNAMIC_MACRO_ENABLE
+#ifdef DYNAMIC_MACRO_ENABLE
 bool macro_1_recording = false;
 bool macro_2_recording = false;
 static bool macro_1_recorded = false;
@@ -128,13 +136,13 @@ void dynamic_macro_play_user(int8_t direction) {
         SEND_STRING(":-)");
     }
 }
-//#endif // DYNAMIC_MACRO_ENABLE
+#endif // DYNAMIC_MACRO_ENABLE
 
 
 // ***********
 // Encoder Use
 // ***********
-//#ifdef ENCODER_ENABLE
+#ifdef ENCODER_ENABLE
 
 // Super Encoder Timer
 uint16_t encoder_timeout = 900;
@@ -143,7 +151,7 @@ bool is_alt_tab_active = false;
 bool is_backspace_active = false;
 
 // Reset mode when timer expired
-void msu_encoder_super_timer(void) { // To be executed in matrix_scan_user.J
+void msu_encoder_super_timer(void) { // To be executed in matrix_scan_user.
     if (is_alt_tab_active) {
         if (timer_elapsed(encoder_timer) > encoder_timeout) {
             unregister_code(KC_LALT);
@@ -162,15 +170,15 @@ void msu_encoder_super_timer(void) { // To be executed in matrix_scan_user.J
  *
  * The index parameter tells you which encoder was turned. If you only have
  * one encoder, the index will always be zero.
- * 
+ *
  * The clockwise parameter tells you the direction of the encoder. It'll be
  * true when you turned the encoder clockwise, and false otherwise.
  */
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    
+
     // First encoder - Super alt-tab and super-backspace
-    if (index == 0) { 
-        
+    if (index == 0) {
+
         // In _FN Layer, volume
         if (layer_state_is(_FN)) {
             (clockwise) ? tap_code16(KC_AUDIO_VOL_UP) : tap_code16(KC_AUDIO_VOL_DOWN);
@@ -178,15 +186,15 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
         // Fancy supers
         else if (clockwise) {
-            
+
             // Super backspace mode
             if (is_backspace_active) {
                 tap_code16(C(KC_Z)); // Undo
             }
-            
+
             // Super alt-tab mode
             else if (is_alt_tab_active) {
-                tap_code16(KC_TAB);               
+                tap_code16(KC_TAB);
             }
 
             // Otherwise activate super alt-tab mode
@@ -195,9 +203,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 register_code(KC_LALT);
                 tap_code16(KC_TAB);
             }
-        } 
+        }
         else { // Counterclockwise
-            
+
             // Super alt-tab mode
             if (is_alt_tab_active) {
                 tap_code16(S(KC_TAB)); // Alt is already registered
@@ -212,26 +220,26 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
         // Update the timer regardless of which direction the encoder was turned or what mode we are in
         encoder_timer = timer_read();
-    } 
-    
+    }
+
     // Second encoder - ctrl-tab
     else if (index == 1) {
         if (clockwise) {
             tap_code16(C(KC_TAB));
-        } 
+        }
         else {
             tap_code16(S(C(KC_TAB)));
         }
     }
     return false;
 }
-//#endif // ENCODER_ENABLE
+#endif // ENCODER_ENABLE
 
 
 // *****************
 // Trackball control
 // *****************
-//#ifdef POINTING_DEVICE_ENABLE
+#ifdef POINTING_DEVICE_ENABLE
 
 // IInitialize custom trackball features
 uint16_t first_dpi = 0;
@@ -242,11 +250,10 @@ bool reported = false;
 
 #include <math.h> // Needed for the floor, fmin, and fmax functions below
 
-// Custom keycodes for mouse functions 
+// Custom keycodes for mouse functions
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-    dprintf("In process_record_user.\n");
     switch (keycode) {
-              
+
         // DPI / CPI - affects how the trackball sensor tracks/reports motion
         case DPI_INC:
             if (record->event.pressed) {
@@ -255,13 +262,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                     reported = true;
                 }
                 detected_dpi = pointing_device_get_cpi();
-                wait_ms(50); 
+                wait_ms(50);
                 dprintf("DPI_INC was pressed. Original DPI configured: %u. Original DPI detected: %u\n", user_config.dpi, detected_dpi);
                 user_config.dpi = fmin(PMW33XX_CPI_MAX, floor(((user_config.dpi * DPI_INCREMENT / 100) / PMW33XX_CPI_STEP) + 0.5) * PMW33XX_CPI_STEP);
                 pointing_device_set_cpi(user_config.dpi);
-                wait_ms(50); 
+                wait_ms(50);
                 detected_dpi = pointing_device_get_cpi();
-                wait_ms(50); 
+                wait_ms(50);
                 dprintf("New DPI configured: %u. New DPI detected: %u\n", user_config.dpi, detected_dpi);
             }
             return false;
@@ -273,7 +280,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 pointing_device_set_cpi(user_config.dpi);
             }
             return false;
-        
+
         // Sensitivity - mathematically adjust how sensitive we are to what the sensor reports
         case SEN_INC:
             if (record->event.pressed) {
@@ -289,7 +296,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 dprintf("New SEN: %u.\n", user_config.sen);
             }
             return false;
-        
+
         // Width of the decel curve... IE do only super slow movements track more precise, or do some medium movements get reduced sensitivity as well?
         case DW_DEC:
             if (record->event.pressed) {
@@ -297,15 +304,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 user_config.decel_width -= 1;
                 dprintf("New Decel Width: %u.\n", user_config.decel_width);
             }
-            return false;    
+            return false;
         case DW_INC:
             if (record->event.pressed) {
                 dprintf("DW_INC was pressed. Original Decel Width: %u.\n", user_config.decel_width);
                 user_config.decel_width += 1;
                 dprintf("New Decel Width: %u.\n", user_config.decel_width);
             }
-            return false;      
-        
+            return false;
+
         // How significantly should cursor movement be desensitized when trying to move the trackball slowly?
         case DECEL_DEC:
             if (record->event.pressed) {
@@ -313,18 +320,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 user_config.decel_strength -= 1;
                 dprintf("New Decel Strength: %u.\n", user_config.decel_strength);
             }
-            return false;    
+            return false;
         case DECEL_INC:
             if (record->event.pressed) {
                 dprintf("DECEL_INC was pressed. Original Decel Strength: %u.\n", user_config.decel_strength);
                 user_config.decel_strength += 1;
                 dprintf("New Decel Strength: %u.\n", user_config.decel_strength);
             }
-            return false;    
+            return false;
         case EE_SAVE:
             if (record->event.pressed) {
                 dprintf("EE_SAVE was pressed. Writing to virtualized EEPROM.\n");
-                eeconfig_update_user(user_config.raw);
+                eeconfig_update_user_datablock(&user_config.raw);
             }
             return false;
     }
@@ -362,9 +369,9 @@ float precision_accumulated_y = 0;
 float scroll_accumulated_h = 0;
 float scroll_accumulated_v = 0;
 float sniping_accumulated_x = 0;
-float sniping_accumulated_y = 0; 
+float sniping_accumulated_y = 0;
 float movement_accumulated_x = 0;
-float movement_accumulated_y = 0; 
+float movement_accumulated_y = 0;
 
 // Manipulate mouse reports
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
@@ -395,14 +402,14 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         // Calculate and accumulate scroll values based on mouse movement and divisors
         #ifdef POINTING_DEVICE_INVERT_Y
             scroll_accumulated_v -= (float)mouse_report.y / user_config.scroll_divisor_v;
-        #else     
+        #else
             scroll_accumulated_v += (float)mouse_report.y / user_config.scroll_divisor_v;
         #endif // POINTING_DEVICE_INVERT_Y
         #ifdef POINTING_DEVICE_INVERT_X
             scroll_accumulated_h -= (float)mouse_report.x / user_config.scroll_divisor_h;
         #else
             scroll_accumulated_h += (float)mouse_report.x / user_config.scroll_divisor_h;
-        #endif // POINTING_DEVICE_INVERT_X 
+        #endif // POINTING_DEVICE_INVERT_X
         // Assign integer parts of accumulated scroll values to the mouse report
         mouse_report.h = (int16_t)scroll_accumulated_h;
         mouse_report.v = (int16_t)scroll_accumulated_v;
@@ -431,7 +438,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
     // Sensitivity Multiplier
     movement_accumulated_x += (float)mouse_report.x * user_config.sen / 1000;
-    movement_accumulated_y += (float)mouse_report.y * user_config.sen / 1000;    
+    movement_accumulated_y += (float)mouse_report.y * user_config.sen / 1000;
     // Assign integer parts of accumulated movement values to the mouse report
     mouse_report.x = (int16_t)movement_accumulated_x;
     mouse_report.y = (int16_t)movement_accumulated_y;
@@ -439,22 +446,22 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     // Update accumulated movement values by subtracting the integer parts
     movement_accumulated_x -= (int16_t)movement_accumulated_x;
     movement_accumulated_y -= (int16_t)movement_accumulated_y;
-    
+
     // DONE
     if (motionDebug) {dprintf("Final: %3d,%3d\n", mouse_report.x, mouse_report.y);}
     return mouse_report;
 }
-//#endif // POINTING_DEVICE_ENABLE
+#endif // POINTING_DEVICE_ENABLE
 
 
 // ************
 // OLED Control
 // ************
-//#ifdef OLED_ENABLE
+#ifdef OLED_ENABLE
 
 // Set up the OLED
 static bool oled_logo_on = true;
-oled_rotation_t oled_init_user(oled_rotation_t rotation) { 
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
 }
 
@@ -474,7 +481,7 @@ static void render_logo(void) {
 
 // Runtime
 bool oled_task_user(void) {
-    
+
     // Logo on boot
     if (timer_elapsed32(oled_logo_timer) < 2000 && oled_logo_on == true) {
         oled_set_brightness(255);
@@ -485,7 +492,7 @@ bool oled_task_user(void) {
         oled_set_brightness(32);
         render_logo();
     }
-    
+
     // Host Keyboard Layer Status
     else {
         if (oled_logo_on) {
@@ -501,7 +508,7 @@ bool oled_task_user(void) {
             case _QWERTY:
                 oled_write_P(PSTR("Default\n"), false);
                 break;
-            case _COLEMAK: 
+            case _COLEMAK:
                 oled_write_P(PSTR("Colemak\n"), false);
                 break;
             case _FN:
@@ -520,9 +527,9 @@ bool oled_task_user(void) {
                 oled_write_P(PSTR("Undefined\n"), false);
                 break;
         }
-        
+
         // Macro Recording
-        //#ifdef DYNAMIC_MACRO_ENABLE
+        #ifdef DYNAMIC_MACRO_ENABLE
         if (macro_1_recording && macro_2_recording) {
             oled_write_P(PSTR("MACROS BOTH RECORDING\n"), false);
             // oled_write_P(PSTR("       WOW!\n"), false);
@@ -533,17 +540,17 @@ bool oled_task_user(void) {
         else if (macro_2_recording) {
             oled_write_P(PSTR("MACRO 2 RECORDING\n"), false);
         }
-        //#endif // DYNAMIC_MACRO_ENABLE
+        #endif // DYNAMIC_MACRO_ENABLE
 
         // Trackball DPI Reporting
-        //#ifdef POINTING_DEVICE_ENABLE
-/*         oled_write_P(PSTR("DPI:"), false);
+        #ifdef POINTING_DEVICE_ENABLE
+        oled_write_P(PSTR("DPI:"), false);
         oled_write_P(PSTR(get_u16_str(user_config.dpi, ' ')), false);
         oled_write_P(PSTR(" SEN:"), false);
         oled_write_P(PSTR(get_u16_str((uint16_t)user_config.sen / 10, ' ')), false);
-        oled_write_P(PSTR("\n"), false); */
-        //#endif
-        
+        oled_write_P(PSTR("\n"), false);
+        #endif
+
         // Host Keyboard LED Status (mostly)
         led_t led_state = host_keyboard_led_state();
         if (!led_state.num_lock) {
@@ -562,24 +569,24 @@ bool oled_task_user(void) {
     }
     return false;
 }
-//#endif // OLED_ENABLE
+#endif // OLED_ENABLE
 
 
 // custom function for temporary sensor troubleshooting
 uint8_t motion_found = 0x00;
 uint8_t motion_stored = 0x00;
-uint8_t squal_found = 0x00; 
+uint8_t squal_found = 0x00;
 uint16_t squal_frequency = 1000;
 uint16_t squal_timer = 0;
 void kpiu_squal_timer(void) { squal_timer = timer_read(); } // To be executed in keyboard_post_init_user.
-uint16_t reinit_timer= 0; 
+uint16_t reinit_timer= 0;
 void kpiu_reinit_timer(void) { reinit_timer = timer_read(); } // To be executed in keyboard_post_init_user.
 uint8_t observation_found = 0x00;
 
 void msu_debug_sensor_custom(void) {
-    
+
     // Motion
-    
+
     // motion_found = pmw33xx_read(0, REG_Motion);
     // if (motion_found != motion_stored) {
     //     dprintf("Motion bit has been set to %x.\n", motion_found);
@@ -588,24 +595,26 @@ void msu_debug_sensor_custom(void) {
 
     // Squal - (measures quality of image capture)
     if (timer_elapsed(squal_timer) > squal_frequency) {
-        squal_timer = timer_read(); 
+        squal_timer = timer_read();
         dprintf("Squal features: %4d; Thresh: %02x; SROM Observation: %02x; SROM_ID: %02x; CPI Read: %5d\n", pmw33xx_read(0, REG_SQUAL) * 8, pmw33xx_read(0, REG_Min_SQ_Run), pmw33xx_read(0, REG_Observation), pmw33xx_read(0, REG_SROM_ID), pointing_device_get_cpi());
         pmw33xx_write(0, REG_Observation, 0x00);
         //dprintf("SROM_ID: %u\n", pmw33xx_read(0, REG_SROM_ID));
-        
+
     }
 
     // if (timer_elapsed(reinit_timer) > 15000) {
     //     reinit_timer = timer_read();
     //     pmw33xx_init(0);
     // }
-    
+
 }
 
 
 // Execute all my custom functions neatly organized above inside the proper API calls
 void matrix_scan_user(void) {
-    msu_encoder_super_timer();
+    #ifdef ENCODER_ENABLE
+        msu_encoder_super_timer();
+    #endif // ENCODER_ENABLE
     msu_debug_sensor_custom();
 }
 
@@ -613,24 +622,26 @@ void keyboard_post_init_user(void) {
 
     // Read persistent config items
     kpiu_read_config_from_eeprom();
+pointing_device_set_cpi(user_config.dpi);
+    init_dpi = pointing_device_get_cpi();
 
     // Debug levels
     debug_enable = true;
     debug_matrix = false;
     debug_keyboard = false;
     debug_mouse = false;
-    
+
     // Start up some timers
     kpiu_oled_timer();
-    kpiu_squal_timer(); 
+    kpiu_squal_timer();
     kpiu_reinit_timer();
 }
 
-void pointing_device_init_user(void) { 
+void pointing_device_init_user(void) {
     first_dpi = pointing_device_get_cpi();
-    pointing_device_set_cpi(user_config.dpi);
-    init_dpi = pointing_device_get_cpi();
-    
+    //pointing_device_set_cpi(user_config.dpi); # moved to kpiu
+    //init_dpi = pointing_device_get_cpi();
+
     //set_auto_mouse_layer(<mouse_layer>); // only required if AUTO_MOUSE_DEFAULT_LAYER is not set to index of <mouse_layer>
     set_auto_mouse_enable(true);         // always required before the auto mouse feature will work
 
