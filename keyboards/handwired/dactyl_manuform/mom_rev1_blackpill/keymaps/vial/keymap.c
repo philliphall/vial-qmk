@@ -33,7 +33,7 @@ enum layer_names {
 };
 
 // Because the Blackpill has issues resuming currently.
-void suspend_wakeup_init_user(void) {    NVIC_SystemReset();}
+// void suspend_wakeup_init_user(void) {    NVIC_SystemReset();}
 
 
 // ***********************************
