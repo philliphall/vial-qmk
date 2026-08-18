@@ -134,22 +134,21 @@ void matrix_scan_user(void) {
 }
 
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    // Layer 0: original Rev4 super encoder
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = {
-        ENCODER_CCW_CW(ENC_SUPER_CCW, ENC_SUPER_CW)
+        ENCODER_CCW_CW(ENC_SUPER_CCW, ENC_SUPER_CW),
+        ENCODER_CCW_CW(KC_TRNS, KC_TRNS) // This right encoder doesn't exist, but QMK thinks it does.
     },
-
-    // Layer 1: original Rev4 layer-2 (_FN) behavior
     [1] = {
-        ENCODER_CCW_CW(KC_VOLD, KC_VOLU)
+        ENCODER_CCW_CW(KC_VOLD, KC_VOLU),
+        ENCODER_CCW_CW(KC_TRNS, KC_TRNS)
     },
-
-    // Layers 2-3 inherit through transparency
     [2] = {
+        ENCODER_CCW_CW(KC_TRNS, KC_TRNS),
         ENCODER_CCW_CW(KC_TRNS, KC_TRNS)
     },
     [3] = {
+        ENCODER_CCW_CW(KC_TRNS, KC_TRNS),
         ENCODER_CCW_CW(KC_TRNS, KC_TRNS)
     }
 };

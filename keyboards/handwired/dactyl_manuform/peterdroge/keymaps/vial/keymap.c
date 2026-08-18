@@ -134,7 +134,7 @@ void matrix_scan_user(void) {
 }
 
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     // Layer 0: original Rev4 super encoder
     [0] = {
         ENCODER_CCW_CW(ENC_SUPER_CCW, ENC_SUPER_CW)
