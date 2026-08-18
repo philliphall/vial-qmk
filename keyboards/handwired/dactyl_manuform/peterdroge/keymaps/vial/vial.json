@@ -82,5 +82,17 @@
             [{"x":-7.5},"7,0","7,1","7,2"],
             [{"x":-6.5},"8,1","8,2"]
         ]
-    }
+    },
+    "customKeycodes": [
+        {
+            "name": "Super encoder CCW",
+            "title": "Rev4 Alt-Tab / Backspace behavior",
+            "shortName": "Super CCW"
+        },
+        {
+            "name": "Super encoder CW",
+            "title": "Rev4 Alt-Tab / Undo behavior",
+            "shortName": "Super CW"
+        }
+    ]
 }
